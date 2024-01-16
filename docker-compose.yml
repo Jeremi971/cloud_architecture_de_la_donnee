@@ -23,19 +23,26 @@ services:
     ports:
       - "40001:80"
     environment:
-      - PMA_HOST=mariadb
-      - PMA_PORT=3306
+      - PMA_HOST=maridadb
+      - PMA_PORt=3306
 
   wordpress:
     image: wordpress
     expose:
-      - 80
+      - 8080
     ports:
-      - 80:80
-    environment :
-      WORDPRESS_DB_HOST : mariadb
-      WORDPRESS_DB_NAME : heticdb
-      WORDPRESS_DB_USER : hetic
-      WORDPRESS_DB_PASSWORD : hetic
-    volumes :
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: heticdb
+      WORDPRESS_DB_USER: hetic
+      WORDPRESS_DB_PASSWORD: hetic
+    volumes:
       - ./wordpress:/var/www/html
+
+  web:
+    build: .
+    command: python app.py
+    ports:
+      - "80:80"
+    restart: always
